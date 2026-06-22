@@ -5,7 +5,7 @@ NUMERO_DE_VENTAS = int(input("¿Cuántas ventas vas a registrar? "))
 nombres = []
 ventas = []
 
-# Captura de datos
+# datos
 for i in range(NUMERO_DE_VENTAS):
     print("\n--- Venta", i+1, "---")
     nombre = input("Nombre del vendedor: ")
@@ -16,18 +16,18 @@ for i in range(NUMERO_DE_VENTAS):
     nombres.append(nombre)
     ventas.append(monto)
 
-# Cálculos
+# Calculos
 total_ventas = 0
 total_comisiones = 0
 mejor_venta = ventas[0]
 mejor_nombre = nombres[0]
 
 print("\n=== Reporte de Comisiones ===")
-print("Vendedor - Monto - Comisión % - Comisión $")
+print("Vendedor - Monto - Comision % - Comisi0n $")
 
 for i in range(NUMERO_DE_VENTAS):
     monto = ventas[i]
-    # Tabla de comisiones
+    #comisiones
     if monto < 500:
         porcentaje = 0.03
     elif monto <= 1499.99:
@@ -51,5 +51,5 @@ for i in range(NUMERO_DE_VENTAS):
 print("\n--- Resumen ---")
 print("Total de ventas:", "$", total_ventas)
 print("Total de comisiones:", "$", total_comisiones)
-print("Mejor vendedor del día:", mejor_nombre, "con $", mejor_venta)
+print("Mejor vendedor del dia:", mejor_nombre, "con $", mejor_venta)
 
