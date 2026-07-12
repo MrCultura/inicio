@@ -1,85 +1,93 @@
 print("=== Academia de Matemáticas ===")
-NUMERO_DE_OPS = int(input("¿Cuántas operaciones vas a registrar? "))
 
-# Listas
-tipos = []
-datos = []
-resultados = []
+# Constantes de menú
+OPCION_POTENCIA = 1
+OPCION_SUMA = 2
+OPCION_FACTORIAL = 3
+OPCION_REPORTE = 4
+OPCION_SALIR = 5
 
 # Funciones recursivas
 def potencia(base, exp):
+    """Calcula la potencia de un número usando recursividad"""
     if exp == 0:
         return 1
     return base * potencia(base, exp - 1)
 
 def suma_acumulada(n):
+    """Calcula la suma acumulada de 1 hasta n usando recursividad"""
     if n == 1:
         return 1
     return n + suma_acumulada(n - 1)
 
 def factorial(n):
+    """Calcula el factorial de un número usando recursividad"""
     if n == 0 or n == 1:
         return 1
     return n * factorial(n - 1)
 
-# Datos
-for i in range(NUMERO_DE_OPS):
-    print("\n--- Operación", i+1, "---")
-    print("1. Potencia\n2. Suma acumulada\n3. Factorial")
-    opcion = int(input("Elige tipo de operación: "))
+# Procedimientos
+def mostrar_menu():
+    """Muestra el menú principal"""
+    print("\n--- Menú principal ---")
+    print("1. Calcular potencia")
+    print("2. Calcular suma acumulada")
+    print("3. Calcular factorial")
+    print("4. Ver reporte de la sesión")
+    print("5. Salir")
 
-    if opcion == 1:
+def mostrar_reporte(historial):
+    """Muestra el reporte de la sesión"""
+    print("\n=== Reporte de la sesión ===")
+    if not historial:
+        print("No hay operaciones registradas aún.")
+    else:
+        print("No.  Operación        Datos              Resultado")
+        for i, op in enumerate(historial, start=1):
+            print(f"{i:<4}{op['tipo']:<15}{op['datos']:<18}{op['resultado']}")
+        print("\nTotal de operaciones realizadas:", len(historial))
+
+# Programa principal
+historial = []
+
+while True:
+    mostrar_menu()
+    opcion = int(input("Elige una opción: "))
+
+    if opcion == OPCION_POTENCIA:
         base = int(input("Base: "))
         exp = int(input("Exponente: "))
         if exp < 0:
             print("El exponente no puede ser negativo.")
-            tipos += ["Potencia"]
-            datos += [f"base={base}, exp={exp}"]
-            resultados += ["Inválido"]
         else:
-            r = potencia(base, exp)
-            print(f"Resultado: {base}^{exp} = {r}")
-            tipos += ["Potencia"]
-            datos += [f"base={base}, exp={exp}"]
-            resultados += [r]
+            resultado = potencia(base, exp)
+            print(f"Resultado: {base}^{exp} = {resultado}")
+            historial.append({"tipo": "Potencia", "datos": f"base={base}, exp={exp}", "resultado": resultado})
 
-    elif opcion == 2:
+    elif opcion == OPCION_SUMA:
         n = int(input("Número: "))
         if n <= 0:
             print("El número debe ser mayor a 0.")
-            tipos += ["Suma acumulada"]
-            datos += [f"n={n}"]
-            resultados += ["Inválido"]
         else:
-            r = suma_acumulada(n)
-            print(f"Resultado: suma(1..{n}) = {r}")
-            tipos += ["Suma acumulada"]
-            datos += [f"n={n}"]
-            resultados += [r]
+            resultado = suma_acumulada(n)
+            print(f"Resultado: suma(1..{n}) = {resultado}")
+            historial.append({"tipo": "Suma acumulada", "datos": f"n={n}", "resultado": resultado})
 
-    elif opcion == 3:
+    elif opcion == OPCION_FACTORIAL:
         n = int(input("Número: "))
         if n < 0:
             print("El número debe ser mayor o igual a 0.")
-            tipos += ["Factorial"]
-            datos += [f"n={n}"]
-            resultados += ["Inválido"]
         else:
-            r = factorial(n)
-            print(f"Resultado: {n}! = {r}")
-            tipos += ["Factorial"]
-            datos += [f"n={n}"]
-            resultados += [r]
+            resultado = factorial(n)
+            print(f"Resultado: {n}! = {resultado}")
+            historial.append({"tipo": "Factorial", "datos": f"n={n}", "resultado": resultado})
+
+    elif opcion == OPCION_REPORTE:
+        mostrar_reporte(historial)
+
+    elif opcion == OPCION_SALIR:
+        print("Gracias por usar el sistema. ¡Hasta luego!")
+        break
 
     else:
-        print("Opción inválida.")
-        tipos += ["Error"]
-        datos += ["opción inválida"]
-        resultados += ["Inválido"]
-
-# Reporte
-print("\n=== Reporte de la sesión ===")
-print("No.  Operación        Datos              Resultado")
-for i in range(NUMERO_DE_OPS):
-    print(f"{i+1:<4}{tipos[i]:<15}{datos[i]:<18}{resultados[i]}")
-print("\nTotal de operaciones realizadas:", NUMERO_DE_OPS)
+        print("Opción inválida. Intenta de nuevo.")
