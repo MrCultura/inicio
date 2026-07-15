@@ -1,6 +1,5 @@
 print("=== Academia de Matemáticas ===")
 
-# Constantes de menú
 OPCION_POTENCIA = 1
 OPCION_SUMA = 2
 OPCION_FACTORIAL = 3
